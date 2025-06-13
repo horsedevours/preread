@@ -28,16 +28,18 @@ func parseWords(b []byte) []string {
 	return strWords
 }
 
-func parseText(rd io.Reader) {
+func parseText(rd io.Reader) []string {
 	bufrd := bufio.NewReader(rd)
 
-	buffer := make([]byte, 4096)
-	_, err := bufrd.Read(buffer)
+	buffer := make([]byte, 512)
+	n, err := bufrd.Read(buffer)
 	if err != nil && err != io.EOF {
 		log.Fatalf("error reading text: %s\n", err)
 	}
 
-	words := parseWords(buffer)
+	words := parseWords(buffer[:n])
 
-	fmt.Printf("Here's the words: %v", words)
+	fmt.Printf("Here's the words: %v\n", words)
+	fmt.Printf("Length of words: %d\n", len(words))
+	return words
 }
