@@ -1,1 +1,3 @@
-test.txt
+preread*
+*.txt
+!3000-most-common-english.txt
